@@ -72,12 +72,12 @@
 </template>
 
 <script>
-export default {
-  components:{
-    'HelloWorld ':HelloWorld ,
-    } ,
-  name: 'App'
-}
+// export default {
+//   components:{
+//     'HelloWorld ':HelloWorld ,
+//     } ,
+//   name: 'App'
+// }
 </script>
 
 <style>

@@ -5,6 +5,7 @@
     position: relative;
     border-radius: 4px;
     overflow: hidden;
+    height:740px;
 }
 .layout-logo{
     width: 100px;
@@ -21,6 +22,7 @@
     margin: 0 auto;
     margin-right: 20px;
 }
+
 </style>
 <template>
     <div class="layout">
@@ -49,7 +51,7 @@
                 </Menu>
             </Header>
             <Layout>
-                <Sider hide-trigger :style="{background: '#fff'}">
+                <Sider hide-trigger :style="{background: '#fff',height:'680px'}">
                     <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
                         <Submenu name="1">
                             <template slot="title">
@@ -85,7 +87,7 @@
                         <BreadcrumbItem>Layout</BreadcrumbItem>
                     </Breadcrumb>
                     <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                        Content
+                       Content
                     </Content>
                 </Layout>
             </Layout>

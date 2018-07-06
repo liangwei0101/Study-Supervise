@@ -1,17 +1,19 @@
 <template>
   <div>
-    <Input v-model="value13" >
+    <Input v-model="searchStr" >
         <span slot="prepend">请输入名字或者编号查询</span>
-        <Button @click="search" slot="append" icon="ios-search"/></Button>
+        <Button @click="search" slot="append" icon="ios-search"/>
     </Input>
-    <Table border :loading="loading" :columns="columns7" :data="data6"></Table>
+    <Table border :loading="loading" :columns="columns7" :data="dataList"></Table>
   </div>
 </template>
 <script>
     export default {
         data () {
             return {
+                searchStr: '',
                 loading: true,
+                dataList:[],
                 columns7: [
                     {
                         title: 'Name',
@@ -131,6 +133,7 @@
             // 定时关闭缓冲标志（1.5秒后）
             setTimeout(()=>{
                 this.loading = false
+                this.dataList = this.data6
             },1500)
         },
         methods: {
@@ -143,8 +146,19 @@
             remove (index) {
                 this.data6.splice(index, 1);
             },
-            search () {
-                alert('我是测试')
+            search () {    
+                if(this.searchStr.trim() !==""){
+                    this.data6.forEach(element => { 
+                        if(element.name == this.searchStr){
+                            var index = this.data6.indexOf(element)
+                            this.dataList = []
+                            this.dataList.push(this.data6[index]) 
+                        }
+                    })
+                }else{
+                    this.dataList = this.data6
+                }      
+
             }
         }
     }

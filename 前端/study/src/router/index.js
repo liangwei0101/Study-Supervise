@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import upmenu from '@/components/upmenu.vue'
-import leftmenu from '@/components/leftmenu.vue'
+import one from '@/components/one.vue'
+import two from '@/components/two.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -13,14 +13,14 @@ export default new Router({
       component: HelloWorld
     },
     {
-    path: '/upmenu',
-    name: 'upmenu',
-    component: upmenu
+    path: '/one',
+    name: 'one',
+    component: one
     },
     {
-      path: '/leftmenu',
-      name: 'leftmenu',
-      component: leftmenu
+      path: '/two',
+      name: 'two',
+      component: two
       },
   ]
 })

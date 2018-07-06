@@ -7,19 +7,19 @@
                     <div class="layout-nav">
                         <MenuItem name="1">
                             <Icon type="ios-navigate"></Icon>
-                            Item 1
+                            基本信息
                         </MenuItem>
                         <MenuItem name="2">
                             <Icon type="ios-keypad"></Icon>
-                            Item 2
+                            校园卡务
                         </MenuItem>
                         <MenuItem name="3">
                             <Icon type="ios-analytics"></Icon>
-                            Item 3
+                            学校通知
                         </MenuItem>
                         <MenuItem name="4">
                             <Icon type="ios-paper"></Icon>
-                            Item 4
+                            更多
                         </MenuItem>
                     </div>
                 </Menu>
@@ -30,27 +30,27 @@
                         <Submenu name="1">
                             <template slot="title">
                                 <Icon type="ios-navigate"></Icon>
-                                Item 1
+                                基本信息
                             </template>
-                            <MenuItem name="1-1">Option 1</MenuItem>
-                            <MenuItem name="1-2">Option 2</MenuItem>
-                            <MenuItem name="1-3">Option 3</MenuItem>
+                             <router-link to="one"><MenuItem name="1-1">学生信息</MenuItem></router-link>
+                            <router-link to="two"> <MenuItem name="1-2">学院信息</MenuItem></router-link>
+                            <MenuItem name="1-3">家庭信息</MenuItem>
                         </Submenu>
                         <Submenu name="2">
                             <template slot="title">
                                 <Icon type="ios-keypad"></Icon>
-                                Item 2
+                                校园卡务
                             </template>
-                            <MenuItem name="2-1">Option 1</MenuItem>
-                            <MenuItem name="2-2">Option 2</MenuItem>
+                            <MenuItem name="2-1">业务往来</MenuItem>
+                            <MenuItem name="2-2">挂失中心</MenuItem>
                         </Submenu>
                         <Submenu name="3">
                             <template slot="title">
                                 <Icon type="ios-analytics"></Icon>
-                                Item 3
+                                学校通知
                             </template>
-                            <MenuItem name="3-1">Option 1</MenuItem>
-                            <MenuItem name="3-2">Option 2</MenuItem>
+                            <MenuItem name="3-1">学校通知</MenuItem>
+                            <MenuItem name="3-2">班级通知</MenuItem>
                         </Submenu>
                     </Menu>
                 </Sider>
@@ -70,13 +70,8 @@
 </template>
 
 <script>
-import upmenu from '@/components/upmenu.vue'
-import leftmenu from '@/components/leftmenu.vue'
+
 export default {
-   components:{
-    'upmenu':upmenu ,
-    'leftmenu':leftmenu
-    } ,
   name: 'App'
  }
 </script>

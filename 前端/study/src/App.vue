@@ -16,15 +16,15 @@
 </template>
 
 <script>
-import upmenu from './components/upmenu.vue'
- import leftmenu from './components/leftmenu.vue'   
+import upmenu from '@/components/upmenu.vue'
+import leftmenu from '@/components/leftmenu.vue'
 export default {
-    components:{
-    'upmenu':upmenu,
+   components:{
+    ' upmenu':upmenu ,
     'leftmenu':leftmenu
     } ,
   name: 'App'
-}
+ }
 </script>
 
 <style>

@@ -45,7 +45,7 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.rowtemplate(params.index)
+                                            this.show(params.index)
                                         }
                                     }
                                 }, '编辑'),
@@ -57,6 +57,7 @@
                                     on: {
                                         click: () => {
                                             this.remove(params.index)
+                                            this.$Message.success('删除成功！')
                                         }
                                     }
                                 }, '删除'),

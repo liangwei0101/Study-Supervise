@@ -155,9 +155,9 @@
                             this.dataList.push(this.data6[index]) 
                         }
                     })
-                }else{
+                }else {
                     this.dataList = this.data6
-                }      
+                 }      
 
             }
         }

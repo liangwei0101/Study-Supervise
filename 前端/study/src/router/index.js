@@ -17,34 +17,34 @@ export default new Router({
       component: HelloWorld
     },
     {
-    path: '/one',
-    name: 'one',
-    component: one
+      path: '/',
+      name: 'one',
+      component: one
     },
     {
       path: '/two',
       name: 'two',
       component: two
-      },
-      {
-        path: '/three',
-        name: 'three',
-        component: three
-        },
-        {
-          path: '/four',
-          name: 'four',
-          component: four
-          },
-          {
-            path: '/form',
-            name: 'form',
-            component: form
-            },
-            {
-              path: '/',
-              name: 'table',
-              component: table
-              }
+    },
+    {
+      path: '/three',
+      name: 'three',
+      component: three
+    },
+    {
+      path: '/four',
+      name: 'four',
+      component: four
+    },
+    {
+      path: '/form',
+      name: 'form',
+      component: form
+    },
+    {
+      path: '/table',
+      name: 'table',
+      component: table
+    }
   ]
 })

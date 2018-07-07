@@ -1,10 +1,30 @@
 <template>
-  <div >
-    <Input v-model="searchStr" >
-        <span slot="prepend">请输入名字或者编号查询</span>
-        <Button @click="search" slot="append" icon="ios-search"/>
-    </Input>
-    <Table border :loading="loading" :columns="columns7" :data="dataList"></Table>
+  <div>
+    <div class="topSearch">
+        <Input v-model="searchStr" placeholder="请输入名字或者编号查询" style="width: 800px"/>
+        <Button  type="info" class="button"  @click="search">查询</Button>
+        <Button type="info" class="button" @click="addUser" >新增</Button>
+    </div>
+    <Table border :loading="loading" :columns="columns7" :data="dataList"/>
+
+   <!-- 表单开始 -->
+     <Modal v-model="modalShow"
+            title="Common Modal dialog box title"
+            @on-ok="ok"
+            @on-cancel="cancel">
+        <Form :model="formRight" label-position="right" :label-width="100">
+            <FormItem label="Title">
+                <Input v-model="formRight.input1"/>
+            </FormItem>
+            <FormItem label="Title name">
+                <Input v-model="formRight.input2"/>
+            </FormItem>
+            <FormItem label="Aligned title">
+                <Input v-model="formRight.input3"/>
+            </FormItem>
+        </Form>  
+    </Modal>
+   <!-- 表单结束 -->
 
   </div>
   
@@ -13,6 +33,12 @@
     export default {
         data () {
             return {
+                modalShow: false,
+                formRight: {
+                    input1: '',
+                    input2: '',
+                    input3: ''
+                },
                 searchStr: '',
                 loading: true,
                 dataList:[],
@@ -162,6 +188,9 @@
                     this.dataList = this.data6
                  }
                 
+            },
+            addUser() {
+                this.modalShow = true
             }
         }
     }
@@ -186,6 +215,12 @@
         }
         /*新增*/
         fieldset{
+            margin-left: 10px;
+        }
+        .topSearch{
+            margin-bottom: 10px;
+        }
+        .button{
             margin-left: 10px;
         }
     </style>

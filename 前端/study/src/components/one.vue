@@ -3,28 +3,28 @@
     <div class="topSearch">
         <Input v-model="searchStr" placeholder="请输入名字或者编号查询" style="width: 800px"/>
         <Button  type="info" class="button"  @click="search">查询</Button>
-        <Button type="info" class="button" @click="addUser" >新增</Button>
+        <Button type="info" class="button" @click="addUserInit">新增</Button>
     </div>
     <Table border :loading="loading" :columns="columns7" :data="dataList"/>
 
    <!-- 表单开始 -->
      <Modal v-model="modalShow"
-            title="Common Modal dialog box title"
-            @on-ok="ok"
-            @on-cancel="cancel">
+            :title="title"
+            @on-ok="add"
+            @on-cancel="取消">
         <Form :model="formRight" label-position="right" :label-width="100">
-            <FormItem label="Title">
+            <FormItem label="用户ID">
                 <Input v-model="formRight.input1"/>
             </FormItem>
-            <FormItem label="Title name">
+            <FormItem label="用户名称">
                 <Input v-model="formRight.input2"/>
             </FormItem>
-            <FormItem label="Aligned title">
+            <FormItem label="年龄">
                 <Input v-model="formRight.input3"/>
             </FormItem>
         </Form>  
     </Modal>
-   <!-- 表单结束  -->
+   <!-- 表单结束 -->
 
   </div>
   
@@ -33,6 +33,7 @@
     export default {
         data () {
             return {
+                title:'',
                 modalShow: false,
                 formRight: {
                     input1: '',
@@ -189,8 +190,18 @@
                  }
                 
             },
-            addUser() {
+            addUserInit() {
+                this.title = '新增用户'
                 this.modalShow = true
+            },
+            add(){
+                var temp =  {
+                        address: this.formRight.input1,
+                        name: this.formRight.input2,
+                        age: this.formRight.input3
+                    }
+                this.dataList.push(temp)  
+                this.$$Message.success('新增成功')
             }
         }
     }

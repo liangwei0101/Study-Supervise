@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div >
     <Input v-model="searchStr" >
         <span slot="prepend">请输入名字或者编号查询</span>
         <Button @click="search" slot="append" icon="ios-search"/>
     </Input>
     <Table border :loading="loading" :columns="columns7" :data="dataList"></Table>
+
   </div>
+  
 </template>
 <script>
     export default {
@@ -54,7 +56,8 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.show(params.index)
+                                            this.edit(params.index)
+                                             
                                         }
                                     }
                                 }, '编辑'),
@@ -137,10 +140,10 @@
             },1500)
         },
         methods: {
-            show (index) {
+            edit (index) {
                 this.$Modal.info({
                     title: 'User Info',
-                    content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
+                    content: `Name：<br>Age：<br>Address：`
                 })
             },
             remove (index) {
@@ -157,9 +160,32 @@
                     })
                 }else {
                     this.dataList = this.data6
-                 }      
-
+                 }
+                
             }
         }
     }
 </script>
+<style type="text/css">
+         table tr td{
+            text-align: center;
+         }
+        .btn-info{
+            margin-left: 5px;
+        }
+
+        .add,.addBox{
+            margin: 10px 0px 10px 10px;
+        }
+        .submit{
+            margin-left: 172px;
+        }
+        /*全删*/
+        .delAll{
+            margin-left: 10px;
+        }
+        /*新增*/
+        fieldset{
+            margin-left: 10px;
+        }
+    </style>

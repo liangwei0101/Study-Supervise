@@ -201,7 +201,7 @@
                         age: this.formRight.input3
                     }
                 this.dataList.push(temp)  
-                this.$$Message.success('新增成功')
+                this.$Message.success('新增成功')
             }
         }
     }

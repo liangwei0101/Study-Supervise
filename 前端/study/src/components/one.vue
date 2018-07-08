@@ -11,7 +11,7 @@
      <Modal v-model="modalShow"
             :title="title"
             @on-ok="add"
-            @on-cancel="取消">
+            @on-cancel="cancel">
         <Form :model="formRight" label-position="right" :label-width="100">
             <FormItem label="用户ID">
                 <Input v-model="formRight.input1"/>
@@ -29,7 +29,7 @@
      <Modal v-model="editmodalShow"
             :title="title"
             @on-ok="editit"
-            @on-cancel="取消">
+            @on-cancel="cancel">
         <Form :model="editform" label-position="right" :label-width="100">
             <FormItem label="用户ID">
                 <Input v-model="editform.input1"/>
@@ -66,7 +66,7 @@
                 input2: '',
                 input3: '' 
                 },
-                temp1:null,
+                temp1:'',
                 searchStr: '',
                 loading: true,
                 dataList:[],
@@ -108,17 +108,10 @@
                                     style: {
                                         marginRight: '5px'
                                     },
-                                    on: {
-                                       
+                                    on: {                                      
                                         click: () => {
-
-                                            this.that.temp1=params.index
-                                            alert(params.index)
-                                            this.edit()
-                                            alert(this.that.temp1)
-                                      
-                                            
-                                             
+                                            this.temp1=params.index
+                                            this.edit()                                        
                                         }
                                     }
                                 }, '编辑'),
@@ -203,7 +196,6 @@
         },
         methods: {
             edit () {
-                alert(this.that.temp1)
                 this.title = '更改用户'
                 this.editmodalShow = true
                 this.editform.input1=this.dataList[this.that.temp1].address
@@ -224,16 +216,17 @@
                     })
                 }else {
                     this.dataList = this.data6
-                 }
-                
+                 }    
             },
             addUserInit() {
                 this.title = '新增用户'
                 this.modalShow = true
-                
             },
-            add(){
-               
+            cancel(){
+                this.modalShow = false
+                this.editmodalShow = false
+            },
+            add(){              
                 var temp =  {
                         address: this.formRight.input1,
                         name: this.formRight.input2,
@@ -242,16 +235,17 @@
                 this.dataList.push(temp)  
                 this.$Message.success('新增成功')
             },
-            editit(){
-              
+            editit(){      
                var temp =  {
                         address: this.editform.input1,
                         name: this.editform.input2,
                         age: this.editform.input3
                     }
-                this.dataList[temp1]=temp;
-               
-               this.$Message.success('编辑成功')
+                console.log(this.dataList[this.temp1])
+                this.dataList[this.temp1].address=temp.address
+                this.dataList[this.temp1].name = temp.name
+                this.dataList[this.temp1].age = temp.age            
+                this.$Message.success('编辑成功')
                }
         }
     }

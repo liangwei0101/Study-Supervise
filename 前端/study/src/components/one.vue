@@ -7,7 +7,7 @@
     </div>
     <Table border :loading="loading" :columns="columns7" :data="dataList"/>
 
-   <!-- 表单开始 -->
+   <!-- 新增表单开始 -->
      <Modal v-model="modalShow"
             :title="title"
             @on-ok="add"
@@ -25,6 +25,25 @@
         </Form>  
     </Modal>
    <!-- 表单结束 -->
+    <!-- 编辑表单开始 -->
+     <Modal v-model="editmodalShow"
+            :title="title"
+            @on-ok="editit"
+            @on-cancel="取消">
+        <Form :model="editform" label-position="right" :label-width="100">
+            <FormItem label="用户ID">
+                <Input v-model="editform.input1"/>
+            </FormItem>
+            <FormItem label="用户名称">
+                <Input v-model="editform.input2"/>
+            </FormItem>
+            <FormItem label="年龄">
+                <Input v-model="editform.input3"/>
+            </FormItem>
+        </Form>  
+    </Modal>
+   <!-- 表单结束 -->
+
 
   </div>
   
@@ -33,13 +52,21 @@
     export default {
         data () {
             return {
+                that: null,
                 title:'',
                 modalShow: false,
+                editmodalShow : false,                    
                 formRight: {
                     input1: '',
                     input2: '',
                     input3: ''
                 },
+                editform:{
+                input1: '',
+                input2: '',
+                input3: '' 
+                },
+                temp1:null,
                 searchStr: '',
                 loading: true,
                 dataList:[],
@@ -82,8 +109,15 @@
                                         marginRight: '5px'
                                     },
                                     on: {
+                                       
                                         click: () => {
-                                            this.edit(params.index)
+
+                                            this.that.temp1=params.index
+                                            alert(params.index)
+                                            this.edit()
+                                            alert(this.that.temp1)
+                                      
+                                            
                                              
                                         }
                                     }
@@ -109,52 +143,52 @@
                     {
                         name: '梁聪聪',
                         age: 18,
-                        address: 'New York No. 1 Lake Park'
+                        address: 1
                     },
                     {
                         name: '梁伟',
                         age: 24,
-                        address: 'London No. 1 Lake Park'
+                        address: 2
                     },
                     {
-                        name: '李小龙',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park'
+                        name: '曾文君',
+                        age: 18,
+                        address: 3
                     },
                     {
                         name: '小生',
                         age: 26,
-                        address: 'Ottawa No. 2 Lake Park'
+                        address: 4
                     },
                     {
                         name: 'Joe Black',
                         age: 30,
-                        address: 'Sydney No. 1 Lake Park'
+                        address: 5
                     },
                     {
                         name: 'Joe Black',
                         age: 30,
-                        address: 'Sydney No. 1 Lake Park'
+                        address: 6
                     },
                     {
                         name: 'Joe Black',
                         age: 30,
-                        address: 'Sydney No. 1 Lake Park'
+                        address: 7
                     },
                     {
                         name: 'Joe Black',
                         age: 30,
-                        address: 'Sydney No. 1 Lake Park'
+                        address: 8
                     },
                     {
                         name: 'Jim Green',
                         age: 24,
-                        address: 'London No. 1 Lake Park'
+                        address: 9
                     },
                     {
                         name: 'Jim Green',
                         age: 24,
-                        address: 'London No. 1 Lake Park'
+                        address: 10
                     },
                 ]
             }
@@ -165,13 +199,16 @@
                 this.loading = false
                 this.dataList = this.data6
             },1500)
+            this.that = this
         },
         methods: {
-            edit (index) {
-                this.$Modal.info({
-                    title: 'User Info',
-                    content: `Name：<br>Age：<br>Address：`
-                })
+            edit () {
+                alert(this.that.temp1)
+                this.title = '更改用户'
+                this.editmodalShow = true
+                this.editform.input1=this.dataList[this.that.temp1].address
+                this.editform.input2=this.dataList[this.that.temp1].name
+                this.editform.input3=this.dataList[this.that.temp1].age
             },
             remove (index) {
                 this.data6.splice(index, 1);
@@ -193,8 +230,10 @@
             addUserInit() {
                 this.title = '新增用户'
                 this.modalShow = true
+                
             },
             add(){
+               
                 var temp =  {
                         address: this.formRight.input1,
                         name: this.formRight.input2,
@@ -202,7 +241,18 @@
                     }
                 this.dataList.push(temp)  
                 this.$Message.success('新增成功')
-            }
+            },
+            editit(){
+              
+               var temp =  {
+                        address: this.editform.input1,
+                        name: this.editform.input2,
+                        age: this.editform.input3
+                    }
+                this.dataList[temp1]=temp;
+               
+               this.$Message.success('编辑成功')
+               }
         }
     }
 </script>

@@ -192,15 +192,15 @@
                 this.loading = false
                 this.dataList = this.data6
             },1500)
-            this.that = this
+          
         },
         methods: {
             edit () {
                 this.title = '更改用户'
                 this.editmodalShow = true
-                this.editform.input1=this.dataList[this.that.temp1].address
-                this.editform.input2=this.dataList[this.that.temp1].name
-                this.editform.input3=this.dataList[this.that.temp1].age
+                this.editform.input1=this.dataList[this.temp1].address
+                this.editform.input2=this.dataList[this.temp1].name
+                this.editform.input3=this.dataList[this.temp1].age
             },
             remove (index) {
                 this.data6.splice(index, 1);
@@ -241,7 +241,7 @@
                         name: this.editform.input2,
                         age: this.editform.input3
                     }
-                console.log(this.dataList[this.temp1])
+                console.log(this.dataList[this.temp1])//打印
                 this.dataList[this.temp1].address=temp.address
                 this.dataList[this.temp1].name = temp.name
                 this.dataList[this.temp1].age = temp.age            

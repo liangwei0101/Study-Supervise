@@ -1,19 +1,31 @@
 <template>
   <div>
     <div class="topSearch">
-        <Input v-model="searchStr" placeholder="请输入名字或者编号查询" style="width: 800px"/>
+        <Input v-model="searchStr" placeholder="请输入名字查询" style="width: 800px"/>
         <Button  type="info" class="button"  @click="search">查询</Button>
         <Button type="info" class="button" @click="addUserInit">新增</Button>
     </div>
-    <Table border :loading="loading" :columns="columns7" :data="dataList"/>
-
+      <div id="id1">  
+     <Table border ref="selection" :loading="loading" :columns="columns7" :data="dataList"></Table>
+      <div style="margin: 10px;overflow: hidden">
+        <div style="float: right;">
+            <Page :total="100" :current="1" @on-change="changePage"></Page>
+        </div>
+    </div>
+     <div id="id2">
+         <br/>
+      <Button type="success" @click="handleSelectAll(true)">设置全选</Button>
+       <Button type="success" @click="handleSelectAll(false)">取消全选</Button>
+        <Button type="success" @click="handledeleteAll(true)">全部删除</Button>
+     </div>
+     </div>
    <!-- 新增表单开始 -->
      <Modal v-model="modalShow"
             :title="title"
             @on-ok="add"
             @on-cancel="cancel">
         <Form :model="formRight" label-position="right" :label-width="100">
-            <FormItem label="用户ID">
+            <FormItem label="用户学号">
                 <Input v-model="formRight.input1"/>
             </FormItem>
             <FormItem label="用户名称">
@@ -31,7 +43,7 @@
             @on-ok="editit"
             @on-cancel="cancel">
         <Form :model="editform" label-position="right" :label-width="100">
-            <FormItem label="用户ID">
+            <FormItem label="用户学号">
                 <Input v-model="editform.input1"/>
             </FormItem>
             <FormItem label="用户名称">
@@ -49,13 +61,15 @@
   
 </template>
 <script>
+import expandRow from '@/components/table-expand.vue';
     export default {
+   components: { expandRow },
         data () {
             return {
-                that: null,
+                dataList:this.mockTableData1(),
                 title:'',
                 modalShow: false,
-                editmodalShow : false,                    
+                editmodalShow : false,                   
                 formRight: {
                     input1: '',
                     input2: '',
@@ -72,7 +86,26 @@
                 dataList:[],
                 columns7: [
                     {
-                        title: 'Name',
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
+                    {
+                        type: 'expand',
+                        width: 50,
+                        render: (h, params) => {
+                            return h(expandRow, {
+                                props: {
+                                    row: params.row
+                                }
+                            })
+                        }
+                    },{
+                        title: '学号',
+                        key: 'number'
+                    },
+                    {
+                        title: '姓名',
                         key: 'name',
                         render: (h, params) => {
                             return h('div', [
@@ -86,15 +119,12 @@
                         }
                     },
                     {
-                        title: 'Age',
+                        title: '年龄',
                         key: 'age'
                     },
+                    
                     {
-                        title: 'Address',
-                        key: 'address'
-                    },
-                    {
-                        title: 'Action',
+                        title: '操作',
                         key: 'action',
                         width: 150,
                         align: 'center',
@@ -133,55 +163,108 @@
                     }
                 ],
                 data6: [
-                    {
+                    { number: 1701,
                         name: '梁聪聪',
                         age: 18,
-                        address: 1
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
-                    {
-                        name: '梁伟',
+                    {   number: 1702,
+                        name:'梁伟',
                         age: 24,
-                        address: 2
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
-                    {
-                        name: '曾文君',
+                    {number: 1703,
+                        name: '梅意婕',
                         age: 18,
-                        address: 3
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
-                    {
-                        name: '小生',
+                    { number: 1704,
+                        name: '陈文艺',
                         age: 26,
-                        address: 4
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
-                    {
+                    { number: 1705,
+                        name: '白伟婷',
+                        age: 30,
+                       
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
+                    },
+                    {number: 1706,
+                        name: '曾文君',
+                        age: 30,
+                        
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
+                    },
+                    {number: 1707,
                         name: 'Joe Black',
                         age: 30,
-                        address: 5
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
-                    {
+                    {number:1708,
                         name: 'Joe Black',
                         age: 30,
-                        address: 6
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 7
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 8
-                    },
-                    {
+                    { 
+                        number: 1709,
                         name: 'Jim Green',
                         age: 24,
-                        address: 9
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
-                    {
+                    { number: 1710,
                         name: 'Jim Green',
                         age: 24,
-                        address: 10
+                        job: 'Data engineer',
+                        interest: 'badminton',
+                        birthday: '1991-05-14',
+                        book: 'Steve Jobs',
+                        movie: 'The Prestige',
+                        music: 'I Cry'
                     },
                 ]
             }
@@ -198,7 +281,7 @@
             edit () {
                 this.title = '更改用户'
                 this.editmodalShow = true
-                this.editform.input1=this.dataList[this.temp1].address
+                this.editform.input1=this.dataList[this.temp1].number
                 this.editform.input2=this.dataList[this.temp1].name
                 this.editform.input3=this.dataList[this.temp1].age
             },
@@ -208,15 +291,16 @@
             search () {    
                 if(this.searchStr.trim() !==""){
                     this.data6.forEach(element => { 
-                        if(element.name == this.searchStr){
-                            var index = this.data6.indexOf(element)
-                            this.dataList = []
-                            this.dataList.push(this.data6[index]) 
+                      if(element.name == this.searchStr){
+                          var index = this.data6.indexOf(element)
+                           this.dataList = []
+                          this.dataList.push(this.data6[index])
                         }
                     })
                 }else {
-                    this.dataList = this.data6
-                 }    
+                 this.dataList = this.data6
+                } 
+                 
             },
             addUserInit() {
                 this.title = '新增用户'
@@ -228,26 +312,77 @@
             },
             add(){              
                 var temp =  {
-                        address: this.formRight.input1,
+                        number: this.formRight.input1,
                         name: this.formRight.input2,
                         age: this.formRight.input3
                     }
                 this.dataList.push(temp)  
                 this.$Message.success('新增成功')
             },
+             edit () {
+                this.title = '更改用户'
+                this.editmodalShow = true
+                this.editform.input1=this.dataList[this.temp1].number
+                this.editform.input2=this.dataList[this.temp1].name
+                this.editform.input3=this.dataList[this.temp1].age
+            },
             editit(){      
                var temp =  {
-                        address: this.editform.input1,
+                       number: this.editform.input1,
                         name: this.editform.input2,
                         age: this.editform.input3
                     }
                 console.log(this.dataList[this.temp1])//打印
-                this.dataList[this.temp1].address=temp.address
+                this.dataList[this.temp1].number=temp.number
                 this.dataList[this.temp1].name = temp.name
                 this.dataList[this.temp1].age = temp.age            
                 this.$Message.success('编辑成功')
-               }
-        }
+               },
+               handleSelectAll (status) {
+               this.$refs.selection.selectAll(status);
+               //this.data6.splice(status);
+            },
+           handledeleteAll()
+            {
+                this.data6.splice(status);
+            },
+             changePage () {
+                // The simulated data is changed directly here, and the actual usage scenario should fetch the data from the server
+                this.dataList=this.mockTableData1();
+                this.remove=this.mockremove;
+                this.search=this.mocksearch
+            },
+            mockremove (index) {
+                this.mockTableData1.splice(index, 1);
+            },
+            mocksearch () {    
+                if(this.searchStr.trim() !==""){
+                    this.mockTableData1.forEach(element => { 
+                      if(element.name == this.searchStr){
+                          var index = this.mockTableData1.indexOf(element)
+                           this.dataList = []
+                          this.dataList.push(this.mockTableData1[index])
+                        }
+                    })
+                }else {
+                 this.dataList = this.mockTableData1
+                } 
+                 
+            },
+            mockTableData1()
+            {
+            let data = [];
+                for (let i = 0; i < 10; i++) {
+                    data.push({
+                        number: Math.floor(Math.random () * 3 + 1), 
+                        name: '姓名' + Math.floor(Math.random () * 100 + 1),
+                         age:Math.floor(Math.random () * 7 + 1),
+                        update: new Date()
+                    })
+                }
+                return data;
+            },
+            }
     }
 </script>
 <style type="text/css">
@@ -274,8 +409,17 @@
         }
         .topSearch{
             margin-bottom: 10px;
+            margin-left: -280px;
         }
         .button{
             margin-left: 10px;
         }
+       #id1 {
+           position: relative;
+       }
+       #id2 {
+           position: absolute;
+           
+       }
+
     </style>

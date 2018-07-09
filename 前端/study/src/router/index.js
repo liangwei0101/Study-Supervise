@@ -6,7 +6,7 @@ import two from '@/components/two.vue'
 import three from '@/components/three.vue'
 import four from '@/components/four.vue'
 import form from '@/components/form.vue'
-import table from '@/components/table.vue'
+import tableexpand from '@/components/table-expand.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -42,9 +42,9 @@ export default new Router({
       component: form
     },
     {
-      path: '/table',
-      name: 'table',
-      component: table
+      path: '/tableexpand',
+      name: 'tableexpand',
+      component: tableexpand
     }
   ]
 })

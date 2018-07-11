@@ -34,7 +34,7 @@
                             </template>
                              <router-link to="one"><MenuItem name="1-1">学生信息</MenuItem></router-link>
                             <router-link to="two"> <MenuItem name="1-2">学院信息</MenuItem></router-link>
-                            <MenuItem name="1-3">家庭信息</MenuItem>
+                            <router-link to="three"><MenuItem name="1-3">家庭信息</MenuItem></router-link>
                         </Submenu>
                         <Submenu name="2">
                             <template slot="title">

@@ -1,0 +1,214 @@
+<!DOCTYPE html>  
+<html>
+<head>  
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<title>南昌公交路线查询系统</title>  
+<style type="text/css">  
+html{height:100%}  
+body{
+    height:100%;
+    margin: 0px;
+    padding:0px
+    } 
+#idall{
+    height: 100%;
+    width: 100%;
+    
+} 
+#inmiddle{
+    height: 1000px;
+    width: 100%;
+    position: relative;
+}
+#container{
+    position:absolute;
+    margin-left: 500px;
+    height:500px;
+    width: 900px;
+}  
+#r-result
+{width:100%;
+height:50px;
+}
+#idroute
+{
+    position: absolute;
+	margin-top: 50px;
+   margin-right: 100px;
+}
+</style>  
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wXo9kNVgHgsVndwBXcHmlOh3sYdu3la9
+">//v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+
+</head>  
+ 
+<body>
+<div id="idall">  
+<div id="r-result">
+    请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" />
+</br>
+	请输入起点或终点：<input type="text" id="suggestId1" size="20"  style="width:150px;" />
+<input type="button" value="确定" onclick="searchInfoWindow.open(marker);"/>
+</br>
+请输入公交线路：<input type="int" id="suggestId2" size="20"  style="width:150px;" />
+<input type="button" value="查询" onclick=""/>
+</div>
+<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+<div id="idmiddle">
+<div id="container"></div> 
+<div id="idroute"></div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+function G(id) {
+		return document.getElementById(id);
+	} 
+var map = new BMap.Map("container");
+// 创建地图实例  
+var point = new BMap.Point(115.863435,28.692497);
+// 创建点坐标  
+map.centerAndZoom(point, 12);
+// 初始化地图，设置中心点坐标和地图级别
+map.addControl(new BMap.MapTypeControl({
+		mapTypes:[
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]}));	  
+	map.setCurrentCity("南昌");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+		{"input" : "suggestId"
+		,"location" : map
+	});
+    ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+	var str = "";
+		var _value = e.fromitem.value;
+		var value = "";
+		if (e.fromitem.index > -1) {
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+		
+		value = "";
+		if (e.toitem.index > -1) {
+			_value = e.toitem.value;
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+		G("searchResultPanel").innerHTML = str;
+	});
+
+	var myValue;
+	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+	var _value = e.item.value;
+		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+		
+		setPlace();
+	});
+    function setPlace(){
+		map.clearOverlays();    //清除地图上所有覆盖物
+		function myFun(){
+			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+			map.centerAndZoom(pp, 18);
+			map.addOverlay(new BMap.Marker(pp));    //添加标注
+		}
+		var local = new BMap.LocalSearch(map, { //智能搜索
+		  onSearchComplete: myFun
+		});
+		local.search(myValue);
+	}
+	var ac1 = new BMap.Autocomplete(    //建立一个自动完成的对象
+		{"input" : "suggestId1"
+		,"location" : map
+	});
+    ac1.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+	var str = "";
+		var _value = e.fromitem.value;
+		var value = "";
+		if (e.fromitem.index > -1) {
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+		
+		value = "";
+		if (e.toitem.index > -1) {
+			_value = e.toitem.value;
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+		G("searchResultPanel").innerHTML = str;
+	});
+
+	var myValue1;
+	ac1.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+	var _value = e.item.value;
+		myValue1 = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+		
+		setPlace();
+	});
+    function setPlace(){
+		map.clearOverlays();    //清除地图上所有覆盖物
+		function myFun(){
+			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+			map.centerAndZoom(pp, 18);
+			map.addOverlay(new BMap.Marker(pp));    //添加标注
+		}
+		var local = new BMap.LocalSearch(map, { //智能搜索
+		  onSearchComplete: myFun
+		});
+		local.search(myValue1);
+	}
+    var busline = new BMap.BusLineSearch(map,{
+		renderOptions:{map:map,panel:"idroute"},
+			onGetBusListComplete: function(result){
+			   if(result) {
+				 var fstLine = result.getBusListItem(0);//获取第一个公交列表显示到map上
+				 busline.getBusLine(fstLine);
+			   }
+			}
+	});
+	function busSearch(){
+		var busName =520;
+		busline.getBusList(busName);
+	}
+	setTimeout(function(){
+		busSearch();
+	},1500);
+
+var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+				'<img src="../img/baidu.jpg" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>' +
+				'地址：南昌市昌北经济技术开发区玉屏大道<br/>电话：(010)59928888<br/>简介：英雄城南昌市，是一所财政部、教育部、江西省人民政府共建，以经济、管理类学科为主，法、工、文、理、农、教育、哲学、历史、艺术等学科协调发展的高等财经学府' +
+			  '</div>';
+
+	var searchInfoWindow = null;
+	searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+			title  : "江西财经大学",      //标题
+			width  : 290,             //宽度
+			height : 105,              //高度
+			panel  : "panel",         //检索结果面板
+			enableAutoPan : true,     //自动平移
+			searchTypes   :[
+				BMAPLIB_TAB_SEARCH,   //周边检索
+				BMAPLIB_TAB_TO_HERE,  //到这里去
+				BMAPLIB_TAB_FROM_HERE //从这里出发
+			]
+		});
+    var marker = new BMap.Marker(point); //创建marker对象
+    marker.enableDragging(); //marker可拖拽
+    marker.addEventListener("click", function(e){
+	    searchInfoWindow.open(marker);
+    })
+    map.addOverlay(marker); //在地图中添加marker
+	
+</script>
+</script>  
+</body>  
+</html>

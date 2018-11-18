@@ -54,7 +54,7 @@ public class Util {
         while((str=br.readLine()) != null)
         {
              Professor professor = new Professor();
-             String[] st = new String [4];
+             String[] st = new String[4];
              st = str.split("-");
              professor.setFirstname(st[0]);
              professor.setLastname(st[1]);

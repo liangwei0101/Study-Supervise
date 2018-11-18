@@ -9,13 +9,15 @@ public class Main {
         String  filename="E:\\test.txt";
         Util.writefilecontent(filename);
         Lists = Util.readFileContent();
-        double all = 0;
-
+        double all3=0;
+        int   count3=0;
         for (Professor professor :Lists) {
-          String st= professor.getSalary();
-            all += Double.parseDouble(st);
+
+                String st= professor.getSalary();
+                all3 += Double.parseDouble(st);
+                count3++;
         }
 
-        double a = all;
+System.out.print(all3);
     }
 }

@@ -12,12 +12,16 @@ public class ReadFile {
         int count1=0,count2=0,count3=0;
         int line=0;
         double avg1,avg2,avg3;
-        String str;
-        while((str=br.readLine()) != null)
-        {
+        String str;str=br.readLine();
+       // while((str=br.readLine()) != null)
+        ///{
          data[line]=str.split(" ");
-         line++;
-        }
+         for(String s:data[line])
+         {
+             System.out.print(s+" ");
+         }
+         //line++;
+        //}
 for(int i=0;i<1000;i++)
     {
         double data1=Double.parseDouble(data[i][3]);

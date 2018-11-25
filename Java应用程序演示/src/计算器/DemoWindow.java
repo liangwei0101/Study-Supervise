@@ -8,28 +8,34 @@ import java.awt.event.ActionListener;
 
 
 public class DemoWindow extends JFrame implements ActionListener {
+
     //显示数值的文本框
     JTextField jtf=new JTextField();
     //布局面板
-     JPanel jp=new JPanel();
-     //显示0到9的按钮数组
-     JButton[] jb;
-     //显示等号的按钮
-     JButton jb1=new JButton("=");
-     //显示加号的按钮
-     JButton jb2=new JButton("+");
-     //被加数
-     int num1=0;
-     //加数
-     int num2=0;
-     //表示是否要清空数值的标记变量
-     boolean clearTextboxFlag=false;
-     //表示是否要进行加法运算的标记变量
-     boolean plusFlag =false;
+    JPanel jp=new JPanel();
+    //显示0到9的按钮数组
+    JButton[] jb;
+    //显示等号的按钮
+    JButton jb1=new JButton("=");
+    //显示加号的按钮
+    JButton jb2=new JButton("+");
+    //被加数
+    int num1=0;
+    //加数
+    int num2=0;
+    //表示是否要清空数值的标记变量
+    boolean clearTextboxFlag=false;
+    //表示是否要进行加法运算的标记变量
+    boolean plusFlag =false;
      //构造函数
      public DemoWindow(String title)
      {
          super(title);
+         init();
+     }
+     public void init()
+     {
+
          //面板布局
          jp.setLayout(new GridLayout(4,3));
          //建立按钮
@@ -118,5 +124,4 @@ public class DemoWindow extends JFrame implements ActionListener {
             reset();
         }
     }
-
 }

@@ -9,7 +9,7 @@ public class TestRandom {
         {
             for(int j=0;j<NUMBER;j++)
             {
-                System.out.println(ra.getArray()[i][j]+" ");
+                System.out.print(ra.getArray()[i][j]+"\t");
             }
             System.out.println();
         }}

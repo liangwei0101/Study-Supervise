@@ -7,7 +7,7 @@
         <Button type="info" class="button" @click="addUserInit">新增</Button>
     </div>
     <div class="body">
-        <Table border ref="selection" :columns="columns4" :data="data1"></Table>
+        <Table border ref="selection" :columns="columns4" :data="dataList"></Table>
         <div id="bottomDiv">
         <Button type="success"  @click="handleSelectAll(true)">设置全选</Button>
         <Button type="success"  @click="handleSelectAll(false)">取消全选</Button>
@@ -261,11 +261,9 @@
                 this.data1.splice(index, 1);
             },
              search () { 
-                 alert(12222)
                 if(this.searchStr.trim()!==""){
                     this.data1.forEach(element => {
                       if(element.number== this.searchStr){
-                          alert(22222)
                           var index = this.data1.indexOf(element)
                            this.dataList = []
                            console.log(this.data1[index])

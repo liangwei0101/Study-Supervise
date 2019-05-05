@@ -265,10 +265,8 @@
                     this.data1.forEach(element => {
                       if(element.number== this.searchStr){
                           var index = this.data1.indexOf(element)
-                           this.dataList = []
-                           console.log(this.data1[index])
+                          this.dataList = []
                           this.dataList.push(this.data1[index])
-                          console.log(this.dataList)
                         }
                     })
                 }else {
